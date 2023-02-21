@@ -13,6 +13,7 @@
 :root {
   /* Primary */
   --Orange: hsl(26, 100%, 55%);
+  --OrangeTransparent: hsla(26, 100%, 55%,0.2);
   --Pale-orange: hsl(25, 100%, 94%);
 
   /* Neutral */
@@ -29,25 +30,27 @@
   --color-bg-1-light:
   --color-bg-1-dark:
   --color-bg-2-light:
-  --color-bg-2-dark:
+  --color-bg-2-dark: ;
 
-  --color-primary-light: var(--Orange)
-  --color-primary-dark:
-  --color-secondary-light: var(--Dark-grayish-blue)
-  --color-secondary-dark:
+  --color-primary-light: var(--Orange);
+  --color-primary-dark: ;
+  --color-secondary-light: var(--Dark-grayish-blue);
+  --color-secondary-dark: ;
 
-  --color-border-light:
-  --color-border-dark:
-  --color-border-hover-light:
-  --color-border-hover-dark:
+  --color-border-light: ;
+  --color-border-dark: ;
+  --color-border-hover-light: ;
+  --color-border-hover-dark: ;
 
-  --color-elements-light: ;
+  --color-elements-light: var(--OrangeTransparent);
   --color-elements-dark: hsl(209, 23%, 22%);
 
-  --color-heading-light:
-  --color-heading-dark:
-  --color-text-light:
-  --color-text-dark: ;
+  --color-heading-light: ;
+  --color-heading-dark: ;
+  --color-text-light: black;
+  --color-text-dark: white;
+  --color-text-sec-light: var(--Dark-grayish-blue);
+  --color-text-sec-dark: var(--Dark-grayish-blue);
   --color-text-active-light: hsl(220, 98%, 61%);
   --color-text-active-dark: hsl(220, 98%, 61%);
   --color-text-hover-light:  hsl(236, 33%, 92%);
@@ -73,6 +76,7 @@
 
   --color-heading: var(--color-heading-light);
   --color-text: var(--color-text-light);
+  --color-text-sec: var(--color-text-sec-light);
   --color-text-active: var(--color-text-active-light);
   --color-text-hover: var(--color-text-hover-light);
 
@@ -131,7 +135,9 @@ body.darkmode{
   position: relative;
   font-weight: normal;
 }
-
+html,body {
+  height:100%;
+}
 body {
   min-height: 100vh;
   color: var(--color-text);
