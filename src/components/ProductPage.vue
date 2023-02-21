@@ -9,10 +9,18 @@ function decrease(){
     amount.value--;
 }
 
-let images = ref(['src/assets/images/image-product-1.jpg',
-    	            'src/assets/images/image-product-2.jpg',
-                    'src/assets/images/image-product-3.jpg',
-                    'src/assets/images/image-product-4.jpg',])
+
+// const imageUrl = new URL('./logo.png', import.meta.url).href
+let images = ref([
+ new URL('../assets/images/image-product-1.jpg', import.meta.url).href,
+ new URL('../assets/images/image-product-2.jpg', import.meta.url).href,
+ new URL('../assets/images/image-product-3.jpg', import.meta.url).href,
+ new URL('../assets/images/image-product-4.jpg', import.meta.url).href,
+
+    	            // 'src/assets/images/image-product-2.jpg',
+                    // 'src/assets/images/image-product-3.jpg',
+                    // 'src/assets/images/image-product-4.jpg',
+                ])
 
 let currentImgIndex = ref(0)
 let currentImg = ref(images.value[currentImgIndex.value])
