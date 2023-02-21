@@ -1,0 +1,28 @@
+@import './base.css';
+
+#app{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+footer{
+  margin-top: auto;
+  padding: 1em;
+}
+/**
+  Utility Classes:
+*/
+
+.container{
+  width: 85%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.row{
+  display: flex;
+}
+
+.col{
+  width: 100%;
+}
