@@ -17,57 +17,83 @@ function toggleShoppingCart() {
   showCart.value = !showCart.value;
 }
 
-function clickOutsideNavMenu(){
-  if(showMobileMenu.value) closeMenuMobile();
+function clickOutsideNavMenu() {
+  if (showMobileMenu.value) closeMenuMobile();
 }
 
 </script>
 
 <template >
-    <header>
-      <div class="container row header">
-        <div class="left row">
-          <img @click="openMenuMobile" id="menuIconImg" src="./assets/images/icon-menu.svg" alt="image of menu icon">
-          <img src="./assets/images/logo.svg" alt="image of sneakers brand logo">
-        </div>
-        <div class="right row">
-          <img @click="toggleShoppingCart" src="./assets/images/icon-cart.svg" alt="shopping cart icon">
-          <img src="./assets/images/image-avatar.png" alt="image of customer avatar">
-        </div>
+  <header>
+    <div class="container row header">
+      <div class="left row">
+        <img @click="openMenuMobile" id="menuIconImg" src="./assets/images/icon-menu.svg" alt="image of menu icon">
+        <img src="./assets/images/logo.svg" alt="image of sneakers brand logo">
       </div>
-    </header>
-  
-    <div v-if="showMobileMenu" class="mobileMenu">
-      <div class=" row header">
-        <div class="left row">
-          <img @click="closeMenuMobile" src="./assets/images/icon-close.svg" alt="image of menu icon">
-        </div>
-      </div>
-      <nav class="bold">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/collections">Collections</RouterLink>
-        <RouterLink to="/men">Men</RouterLink>
-        <RouterLink to="/women">Women</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/contact">Contact</RouterLink>
-      </nav>
-    </div>
-  
-    <div v-if="showCart" class="cart row" @click="clickOutsideNavMenu">
-      <h2 class="bold">Cart</h2>
-      <div class="cartContent row">
-        <!-- <p class="bold">Your cart is empty</p> -->
-  
+      <div class="right row">
+        <img @click="toggleShoppingCart" src="./assets/images/icon-cart.svg" alt="shopping cart icon">
+        <img src="./assets/images/image-avatar.png" alt="image of customer avatar">
       </div>
     </div>
-  
-    <RouterView @click="clickOutsideNavMenu" />
-  
-  
-    <footer @click="clickOutsideNavMenu">
-      <div class="ta-center">Coded by T</div>
-    </footer>
+  </header>
 
+  <div v-if="showMobileMenu" class="mobileMenu">
+    <div class=" row header">
+      <div class="left row">
+        <img @click="closeMenuMobile" src="./assets/images/icon-close.svg" alt="image of menu icon">
+      </div>
+    </div>
+    <nav class="bold">
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/collections">Collections</RouterLink>
+      <RouterLink to="/men">Men</RouterLink>
+      <RouterLink to="/women">Women</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/contact">Contact</RouterLink>
+    </nav>
+  </div>
+
+  <div v-if="showCart" class="cart row" @click="clickOutsideNavMenu">
+    <h2 class="bold">Cart</h2>
+    <div class="cartContent row">
+      <!-- <p class="bold">Your cart is empty</p> -->
+
+      <div class="productItem row">
+        <div class="thumbnail row">
+          <img src="./assets/images/image-product-1-thumbnail.jpg" alt="thumbnail image of product (shoes)">
+        </div>
+        <div class="infos row">
+          <div class="title">Fall Limited Edition Sneakers</div>
+          <div class="price">$125.00 x 3 <span class="sumprice bold">$375</span></div>
+        </div>
+        <div class="delete">
+          <img class="deleteIcon" src="./assets/images/icon-delete.svg" alt="image of delete icon">
+        </div>
+      </div>
+
+      <div class="productItem row">
+        <div class="thumbnail row">
+          <img src="./assets/images/image-product-1-thumbnail.jpg" alt="thumbnail image of product (shoes)">
+        </div>
+        <div class="infos row">
+          <div class="title">Fall Limited Edition Sneakers</div>
+          <div class="price">$125.00 x 3 <span class="sumprice bold">$375</span></div>
+        </div>
+        <div class="delete">
+          <img class="deleteIcon" src="./assets/images/icon-delete.svg" alt="image of delete icon">
+        </div>
+      </div>
+
+      <button class="checkout bold">Checkout</button>
+    </div>
+  </div>
+
+  <RouterView @click="clickOutsideNavMenu" />
+
+
+  <footer @click="clickOutsideNavMenu">
+    <div class="ta-center">Coded by T</div>
+  </footer>
 </template>
 
 <style scoped>
@@ -100,11 +126,51 @@ function clickOutsideNavMenu(){
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 1.25em;
+  gap: 1.25em;
 }
 
 .cart p {
   text-align: center;
   color: var(--color-text-sec)
+}
+
+.productItem{
+  gap: 1em;
+  justify-content: space-between;
+  align-items: center;
+}
+.thumbnail{
+  width: 15%;
+}
+.thumbnail img{
+  border-radius: 8px;
+}
+.infos{
+  flex: 1;
+  flex-direction: column;
+  gap: 0.25em;
+  color: var(--color-text-sec)
+}
+.infos .price{
+  font-size: 1.1rem;
+}
+.sumprice{
+  color: var(--color-text);
+}
+.delete{
+  width: 5%;
+}
+.deleteIcon{
+  width: 100%;
+}
+.checkout {
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 10px;
+  width: 100%;
+  padding: 1.3em;
+  color: white;
 }
 
 .mobileMenu {
