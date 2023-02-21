@@ -5,16 +5,30 @@
   flex-direction: column;
   min-height: 100vh;
 }
+
 footer{
   margin-top: auto;
   padding: 1em;
 }
+
 /**
   Utility Classes:
 */
+.reg{
+  font-family: var(--font-reg);
+}
+.bold{
+  font-family: var(--font-bold);
+}
+.light{
+  font-family: var(--font-light);
+}
+.ta-center{
+  text-align: center;
+}
 
 .container{
-  width: 85%;
+  width: 90%;
   max-width: 1300px;
   margin: 0 auto;
 }
