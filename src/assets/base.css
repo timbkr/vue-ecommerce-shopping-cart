@@ -26,6 +26,7 @@
 }
 :root {
   --color-bg-light: var(--Pale-orange);
+  --color-bg-light: white;
   --color-bg-dark: hsl(207, 26%, 17%);
   --color-bg-1-light:
   --color-bg-1-dark:
