@@ -8,10 +8,44 @@ function increase(){
 function decrease(){
     amount.value--;
 }
+
+let images = ref(['src/assets/images/image-product-1.jpg',
+    	            'src/assets/images/image-product-2.jpg',
+                    'src/assets/images/image-product-3.jpg',
+                    'src/assets/images/image-product-4.jpg',])
+
+let currentImgIndex = ref(0)
+let currentImg = ref(images.value[currentImgIndex.value])
+
+function nextPicture(){    
+    currentImgIndex.value++;
+    if(currentImgIndex.value >= images.value.length){
+        currentImgIndex.value = 0;
+    }
+    currentImg.value = images.value[currentImgIndex.value]
+}
+
+function previousPicture(){
+    currentImgIndex.value--;
+    if(currentImgIndex.value < 0) currentImgIndex.value = images.value.length-1;
+    currentImg.value = images.value[currentImgIndex.value]
+
+}
 </script>
 
 <template>
-    <img src="../assets/images/image-product-1.jpg" alt="image 1 of product (shoes)">
+    <div class="productImages">
+        <div class="previous" @click="previousPicture">
+            <img src="../assets/images/icon-previous.svg" alt="previous icon to go to previous image">
+        </div>
+        <div class="next" @click="nextPicture">
+            <img src="../assets/images/icon-next.svg" alt="next icon to go to next image">
+        </div>
+
+        <img :src="currentImg" alt="image of product (shoes)">
+        <!-- <img src="../assets/images/image-product-1.jpg" alt="image 1 of product (shoes)"> -->
+    </div>
+
     <div class="container">
         <h2 class="bold">SNEAKER COMPANY</h2>
         <h1>Fall Limited Edition Sneaker</h1>
@@ -41,9 +75,30 @@ function decrease(){
 </template>
 
 <style scoped>
+/** Image Buttons */
+.previous, .next{
+    position: absolute;
+    top: 45%;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 1em;
+    border-radius: 50%;
+}
+.previous{
+    left: 5vw;
+}
+.next{
+    right: 5vw;
+}
+
 img{
     object-fit: contain;
 }
+
+/** Styles */
 h1{
     padding: 0.5em 0;
     /* line-height: 1; */
