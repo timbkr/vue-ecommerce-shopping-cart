@@ -16,52 +16,58 @@ function toggleShoppingCart() {
   console.log("cart");
   showCart.value = !showCart.value;
 }
+
+function clickOutsideNavMenu(){
+  if(showMobileMenu.value) closeMenuMobile();
+}
+
 </script>
 
-<template>
-  <header>
-    <div class="container row header">
-      <div class="left row">
-        <img @click="openMenuMobile" id="menuIconImg" src="./assets/images/icon-menu.svg" alt="image of menu icon">
-        <img src="./assets/images/logo.svg" alt="image of sneakers brand logo">
+<template >
+    <header>
+      <div class="container row header">
+        <div class="left row">
+          <img @click="openMenuMobile" id="menuIconImg" src="./assets/images/icon-menu.svg" alt="image of menu icon">
+          <img src="./assets/images/logo.svg" alt="image of sneakers brand logo">
+        </div>
+        <div class="right row">
+          <img @click="toggleShoppingCart" src="./assets/images/icon-cart.svg" alt="shopping cart icon">
+          <img src="./assets/images/image-avatar.png" alt="image of customer avatar">
+        </div>
       </div>
-      <div class="right row">
-        <img @click="toggleShoppingCart" src="./assets/images/icon-cart.svg" alt="shopping cart icon">
-        <img src="./assets/images/image-avatar.png" alt="image of customer avatar">
+    </header>
+  
+    <div v-if="showMobileMenu" class="mobileMenu">
+      <div class=" row header">
+        <div class="left row">
+          <img @click="closeMenuMobile" src="./assets/images/icon-close.svg" alt="image of menu icon">
+        </div>
+      </div>
+      <nav class="bold">
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/collections">Collections</RouterLink>
+        <RouterLink to="/men">Men</RouterLink>
+        <RouterLink to="/women">Women</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/contact">Contact</RouterLink>
+      </nav>
+    </div>
+  
+    <div v-if="showCart" class="cart row" @click="clickOutsideNavMenu">
+      <h2 class="bold">Cart</h2>
+      <div class="cartContent row">
+        <!-- <p class="bold">Your cart is empty</p> -->
+  
       </div>
     </div>
-  </header>
+  
+    <RouterView @click="clickOutsideNavMenu" />
+  
+  
+    <footer @click="clickOutsideNavMenu">
+      <div class="ta-center">Coded by T</div>
+    </footer>
 
-  <div v-if="showMobileMenu" class="mobileMenu">
-    <div class=" row header">
-      <div class="left row">
-        <img @click="closeMenuMobile" src="./assets/images/icon-close.svg" alt="image of menu icon">
-      </div>
-    </div>
-    <nav class="bold">
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/collections">Collections</RouterLink>
-      <RouterLink to="/men">Men</RouterLink>
-      <RouterLink to="/women">Women</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-      <RouterLink to="/contact">Contact</RouterLink>
-    </nav>
-  </div>
-
-  <div v-if="showCart" class="cart row">
-    <h2 class="bold">Cart</h2>
-    <div class="cartContent row">
-      <!-- <p class="bold">Your cart is empty</p> -->
-
-    </div>
-  </div>
-
-  <RouterView />
-
-
-  <footer>
-    <div class="ta-center">Coded by T</div>
-  </footer>
 </template>
 
 <style scoped>
