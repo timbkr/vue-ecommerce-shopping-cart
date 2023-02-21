@@ -7,8 +7,14 @@ function openMenuMobile() {
   console.log("Open NavMenu");
   showMobileMenu.value = true;
 }
-function closeMenuMobile(){
+function closeMenuMobile() {
   showMobileMenu.value = false;
+}
+
+let showCart = ref(true);
+function toggleShoppingCart() {
+  console.log("cart");
+  showCart.value = !showCart.value;
 }
 </script>
 
@@ -20,7 +26,7 @@ function closeMenuMobile(){
         <img src="./assets/images/logo.svg" alt="image of sneakers brand logo">
       </div>
       <div class="right row">
-        <img src="./assets/images/icon-cart.svg" alt="shopping cart icon">
+        <img @click="toggleShoppingCart" src="./assets/images/icon-cart.svg" alt="shopping cart icon">
         <img src="./assets/images/image-avatar.png" alt="image of customer avatar">
       </div>
     </div>
@@ -29,7 +35,7 @@ function closeMenuMobile(){
   <div v-if="showMobileMenu" class="mobileMenu">
     <div class=" row header">
       <div class="left row">
-        <img @click="closeMenuMobile"  src="./assets/images/icon-close.svg" alt="image of menu icon">
+        <img @click="closeMenuMobile" src="./assets/images/icon-close.svg" alt="image of menu icon">
       </div>
     </div>
     <nav class="bold">
@@ -42,6 +48,14 @@ function closeMenuMobile(){
     </nav>
   </div>
 
+  <div v-if="showCart" class="cart row">
+    <h2 class="bold">Cart</h2>
+    <div class="cartContent row">
+      <!-- <p class="bold">Your cart is empty</p> -->
+
+    </div>
+  </div>
+
   <RouterView />
 
 
@@ -51,6 +65,42 @@ function closeMenuMobile(){
 </template>
 
 <style scoped>
+.cart {
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  width: 95%;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 9vh;
+  z-index: 6;
+  background-color: white;
+  min-height: 30vh;
+  border-radius: 15px;
+
+  -webkit-box-shadow: 0px 19px 23px -23px #000000;
+  box-shadow: 0px 19px 23px -23px #000000;
+}
+
+.cart h2 {
+  border-bottom: 1px solid var(--color-text-sec);
+  padding: 1.5em;
+  font-size: 1.2rem;
+}
+
+.cartContent {
+  height: 100%;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart p {
+  text-align: center;
+  color: var(--color-text-sec)
+}
+
 .mobileMenu {
   position: fixed;
   width: 65vw;
@@ -90,9 +140,10 @@ nav {
   display: flex;
   flex-direction: column;
   gap: 1.5em;
-  padding-top: 1.5em ;
+  padding-top: 1.5em;
 }
-nav a{
+
+nav a {
   text-decoration: none;
   color: var(--color-text);
   font-size: 1.4rem;
