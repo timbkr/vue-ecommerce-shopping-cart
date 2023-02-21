@@ -97,6 +97,10 @@ function clickOutsideNavMenu() {
 </template>
 
 <style scoped>
+
+/**
+---------------------- Shopping Cart ----------------------
+*/
 .cart {
   flex-direction: column;
   justify-content: center;
@@ -173,6 +177,9 @@ function clickOutsideNavMenu() {
   color: white;
 }
 
+/**
+---------------------- Mobile Nav Menu ----------------------
+*/
 .mobileMenu {
   position: fixed;
   width: 65vw;
@@ -182,6 +189,9 @@ function clickOutsideNavMenu() {
   padding-left: 5vw;
 }
 
+/**
+---------------------- Header ----------------------
+*/
 header {
   background-color: var(--color-bg);
 }
