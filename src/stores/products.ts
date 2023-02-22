@@ -29,10 +29,10 @@ export const useProductsStore = defineStore("products", () => {
 
     function remove() {}
 
-    const doubleCount = computed(() => count.value * 2);
-    function increment() {
-        count.value++;
-    }
+    // const doubleCount = computed(() => count.value * 2);
+    // function increment() {
+    //     count.value++;
+    // }
 
     return { products, doubleCount, add, remove };
 });
