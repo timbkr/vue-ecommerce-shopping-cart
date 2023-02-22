@@ -303,8 +303,9 @@ nav a {
 
   .cart {
     border: 1px solid var(--color-text-sec);
-    width: 90%;
+    width: 50%;
     max-width: 1300px;
+    transform: translateX(-7.5%);
   }
 }
 </style>
