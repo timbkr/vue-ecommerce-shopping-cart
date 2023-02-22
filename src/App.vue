@@ -11,7 +11,7 @@ function closeMenuMobile() {
   showMobileMenu.value = false;
 }
 
-let showCart = ref(true);
+let showCart = ref(false);
 function toggleShoppingCart() {
   console.log("cart");
   showCart.value = !showCart.value;
@@ -28,15 +28,27 @@ function clickOutsideNavMenu() {
     <div class="container row header">
       <div class="left row">
         <img @click="openMenuMobile" id="menuIconImg" src="./assets/images/icon-menu.svg" alt="image of menu icon">
-        <img src="./assets/images/logo.svg" alt="image of sneakers brand logo">
+        <img src="./assets/images/logo.svg" alt="image of sneakers brand logo">  
+        <nav class="desktopNav">
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/collections">Collections</RouterLink>
+      <RouterLink to="/men">Men</RouterLink>
+      <RouterLink to="/women">Women</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/contact">Contact</RouterLink>
+</nav>
       </div>
       <div class="right row">
         <img @click="toggleShoppingCart" src="./assets/images/icon-cart.svg" alt="shopping cart icon">
-        <img src="./assets/images/image-avatar.png" alt="image of customer avatar">
+        <img class="customerAvatarImg" src="./assets/images/image-avatar.png" alt="image of customer avatar">
       </div>
     </div>
   </header>
 
+
+    <!-- 
+   -----------------------  Mobile Navmenu -----------------------
+   -->
   <div v-if="showMobileMenu" class="mobileMenu">
     <div class=" row header">
       <div class="left row">
@@ -53,6 +65,9 @@ function clickOutsideNavMenu() {
     </nav>
   </div>
 
+  <!-- 
+   -----------------------  Shopping Cart -----------------------
+   -->
   <div v-if="showCart" class="cart row" @click="clickOutsideNavMenu">
     <h2 class="bold">Cart</h2>
     <div class="cartContent row">
@@ -88,6 +103,9 @@ function clickOutsideNavMenu() {
     </div>
   </div>
 
+    <!-- 
+   -----------------------  APP -----------------------
+   -->
   <RouterView @click="clickOutsideNavMenu" />
 
 
@@ -98,13 +116,68 @@ function clickOutsideNavMenu() {
 
 <style scoped>
 
+
+/**
+---------------------- Header ----------------------
+*/
+header {
+  background-color: var(--color-bg);
+}
+
+.header {
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5vh 0;
+}
+
+.header img {
+  height: 2.7vh;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.left,
+.right {
+  gap: 4.2vw;
+  align-items: center;
+}
+
+#menuIconImg {
+  height: 2.2vh;
+  align-self: flex-end;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  padding-top: 1.5em;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 1.4rem;
+}
+/**
+---------------------- Mobile Nav Menu ----------------------
+*/
+.desktopNav{ display:none }
+.mobileMenu {
+  position: fixed;
+  width: 65vw;
+  height: 100vh;
+  z-index: 500;
+  background-color: white;
+  padding-left: 5vw;
+}
 /**
 ---------------------- Shopping Cart ----------------------
 */
 .cart {
   flex-direction: column;
   justify-content: center;
-  position: fixed;
+  position: absolute;
   width: 95%;
   left: 50%;
   transform: translateX(-50%);
@@ -177,57 +250,42 @@ function clickOutsideNavMenu() {
   color: white;
 }
 
-/**
----------------------- Mobile Nav Menu ----------------------
-*/
-.mobileMenu {
-  position: fixed;
-  width: 65vw;
-  height: 100vh;
-  z-index: 500;
-  background-color: white;
-  padding-left: 5vw;
-}
+@media (min-width: 700px){
+  #menuIconImg{
+    display: none;
+  }
+  header{
+    /* padding: 2em 0; */
+    padding-bottom: 4em;
 
-/**
----------------------- Header ----------------------
-*/
-header {
-  background-color: var(--color-bg);
-}
+  }
+  .header{
+    border-bottom: 1px solid var(--color-text-sec);
+    padding: 2em 0;
+  }
+  .desktopNav{ 
+    display:flex;
+    flex-direction: row;
+    padding: 0;
+    /* gap: 2em; */
+    color: var(--color-text-sec);
+  }
+  .desktopNav a{ 
+    color:inherit;
+    font-size: 1.125rem;
+  }
+  .header img{
+    /* height: 3vh; */
+  }
+  .right{
+    gap: 2.5em;
+  }
+  .header .customerAvatarImg{
+    height: 4.75vh;
 
-.header {
-  justify-content: space-between;
-  align-items: center;
-  padding: 2.5vh 0;
-}
-
-.header img {
-  height: 2.7vh;
-  object-fit: contain;
-  cursor: pointer;
-}
-
-.left,
-.right {
-  gap: 4.2vw;
-}
-
-#menuIconImg {
-  height: 2.2vh;
-  align-self: flex-end;
-}
-
-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5em;
-  padding-top: 1.5em;
-}
-
-nav a {
-  text-decoration: none;
-  color: var(--color-text);
-  font-size: 1.4rem;
+  }
+  .cart{
+        border: 1px solid var(--color-text-sec);
+    }
 }
 </style>

@@ -42,44 +42,48 @@ function previousPicture() {
 </script>
 
 <template>
-    <div class="productImages">
-        <div class="previous" @click="previousPicture">
-            <img src="../assets/images/icon-previous.svg" alt="previous icon to go to previous image">
-        </div>
-        <div class="next" @click="nextPicture">
-            <img src="../assets/images/icon-next.svg" alt="next icon to go to next image">
-        </div>
-
-        <img :src="currentImg" alt="image of product (shoes)">
-        <!-- <img src="../assets/images/image-product-1.jpg" alt="image 1 of product (shoes)"> -->
-    </div>
-
-    <div class="container">
-        <h2 class="bold">SNEAKER COMPANY</h2>
-        <h1>Fall Limited Edition Sneaker</h1>
-        <p class="description">These low-profile sneakers are your perfect casual wear companion. Featuring a
-            durable rubber outer sole, they’ll withstand everything the weather can offer.</p>
-
-        <div class="row priceRow">
-            <div class="left row">
-                <div class="price bold">$125.00</div>
-                <div class="rabatt bold">50%</div>
+    <div class="wrapper">
+        <div class="productImages">
+            <div class="previous" @click="previousPicture">
+                <img src="../assets/images/icon-previous.svg" alt="previous icon to go to previous image">
             </div>
-            <div class="oldPrice bold">$250.00</div>
+            <div class="next" @click="nextPicture">
+                <img src="../assets/images/icon-next.svg" alt="next icon to go to next image">
+            </div>
+
+            <img v-for="src in images" :src="src" alt="image of product (shoes)">
+            <!-- <img src="../assets/images/image-product-1.jpg" alt="image 1 of product (shoes)"> -->
         </div>
 
-        <div class="row amount">
-            <div class="amountOuter" @click="decrease">
-                <img src="../assets/images/icon-minus.svg" alt="minus icon to decrease product amount">
+        <div class="container productRight">
+            <h2 class="bold">SNEAKER COMPANY</h2>
+            <h1>Fall Limited Edition Sneakers</h1>
+            <p class="description">These low-profile sneakers are your perfect casual wear companion. Featuring a
+                durable rubber outer sole, they’ll withstand everything the weather can offer.</p>
+
+            <div class="row priceRow">
+                <div class="left row">
+                    <div class="price bold">$125.00</div>
+                    <div class="rabatt bold">50%</div>
+                </div>
+                <div class="oldPrice bold">$250.00</div>
             </div>
-            <input class="bold" type="number" name="" id="" v-model="amount">
-            <div class="amountOuter amountRight" @click="increase">
-                <img src="../assets/images/icon-plus.svg" alt="plus icon to increase product amount">
+
+            <div class="addToCart">
+                <div class="row amount">
+                    <div class="amountOuter" @click="decrease">
+                        <img src="../assets/images/icon-minus.svg" alt="minus icon to decrease product amount">
+                    </div>
+                    <input class="bold" type="number" name="" id="" v-model="amount">
+                    <div class="amountOuter amountRight" @click="increase">
+                        <img src="../assets/images/icon-plus.svg" alt="plus icon to increase product amount">
+                    </div>
+                </div>
+                <button class="addToCartBTN"><img src="../assets/images/icon-cart-white.svg" alt="shopping cart icon"> Add
+                    to
+                    cart</button>
             </div>
         </div>
-
-        <button class="addToCartBTN"><img src="../assets/images/icon-cart-white.svg" alt="shopping cart icon"> Add to
-            cart</button>
     </div>
 </template>
 
@@ -198,6 +202,75 @@ p {
     display: flex;
     justify-content: center;
     gap: 1em;
-    -webkit-box-shadow: 0px 19px 23px -23px #FF7D1A; 
-box-shadow: 0px 19px 23px -23px #FF7D1A;
+    -webkit-box-shadow: 0px 19px 23px -23px #FF7D1A;
+    box-shadow: 0px 19px 23px -23px #FF7D1A;
+}
+
+@media (min-width: 700px) {
+    .wrapper {
+        display: flex;
+        width: 90%;
+        max-width: 1300px;
+        margin: 0 auto;
+        gap: 2em;
+    }
+
+    .wrapper>* {
+        width: 50%;
+        padding: 0 3vw;
+
+    }
+
+
+    /**
+---------------------- Left (images) ----------------------
+*/
+    .productImages {
+        max-height: none;
+        width: 50%;
+    }
+
+    .productImages img {
+        border-radius: 15px;
+    }
+
+    /**
+---------------------- Right (images) ----------------------
+*/
+    .productRight {
+        padding-top: 2em;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .description {
+        padding: 1em 0;
+    }
+
+    .addToCart {
+        display: flex;
+        align-items: center;
+        gap: 2em;
+    }
+
+    .priceRow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3em;
+        padding-bottom: 1.5em;
+    }
+
+    .oldPrice {
+        font-family: var(--font-reg);
+    }
+
+    .amount {
+        margin-bottom: 0;
+    }
+
+    .amount input {
+        width: 50%;
+    }
 }</style>
