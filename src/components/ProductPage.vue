@@ -37,23 +37,39 @@ function previousPicture() {
     currentImgIndex.value--;
     if (currentImgIndex.value < 0) currentImgIndex.value = images.value.length - 1;
     currentImg.value = images.value[currentImgIndex.value]
+}
 
+let thumbnailImgIndex = ref(0);
+function changePicture(index: number){
+    currentImgIndex.value = index;
+    currentImg.value = images.value[currentImgIndex.value]
+    thumbnailImgIndex.value = index
 }
 </script>
 
 <template>
     <div class="wrapper">
         <div class="productImages">
-            <div class="previous" @click="previousPicture">
-                <img src="../assets/images/icon-previous.svg" alt="previous icon to go to previous image">
-            </div>
-            <div class="next" @click="nextPicture">
-                <img src="../assets/images/icon-next.svg" alt="next icon to go to next image">
-            </div>
+            <div class="imgSlider">
+                <div class="previous" @click="previousPicture">
+                    <img src="../assets/images/icon-previous.svg" alt="previous icon to go to previous image">
+                </div>
+                <div class="next" @click="nextPicture">
+                    <img src="../assets/images/icon-next.svg" alt="next icon to go to next image">
+                </div>
+    
+                <img class="imgSliderIMG" :src="currentImg" alt="image of product (shoes)">
 
-            <img v-for="src in images" :src="src" alt="image of product (shoes)">
-            <!-- <img src="../assets/images/image-product-1.jpg" alt="image 1 of product (shoes)"> -->
-        </div>
+            </div>
+          
+            <div class="imgThumbnails">
+                <div class="thumbnailContainer" v-for="(src,index) in images" :class="(thumbnailImgIndex === index)?'activeThumbBorder': ''">
+                    <img class="thumbnailIMG"  :src="src" :class="(thumbnailImgIndex === index)?'activeThumbImg': ''" @click="changePicture(index)" alt="image of product (shoes)">
+                </div>
+
+            </div>
+                <!-- <img src="../assets/images/image-product-1.jpg" alt="image 1 of product (shoes)"> -->
+            </div>
 
         <div class="container productRight">
             <h2 class="bold">SNEAKER COMPANY</h2>
@@ -89,6 +105,7 @@ function previousPicture() {
 
 <style scoped>
 /** Image Buttons */
+.imgThumbnails{ display: none;}
 .previous,
 .next {
     position: absolute;
@@ -110,7 +127,7 @@ function previousPicture() {
     right: 5vw;
 }
 
-.productImages {
+.imgSlider {
     max-height: 37vh;
     overflow: hidden;
 }
@@ -225,15 +242,45 @@ p {
     /**
 ---------------------- Left (images) ----------------------
 */
-    .productImages {
+    .imgSliderIMG {
         max-height: none;
-        width: 50%;
+        /* width: 50%; */
     }
 
-    .productImages img {
+    .imgSliderIMG {
         border-radius: 15px;
     }
+  .previous, .next{
+        display: none;
+    }
+    .imgSlider{
+        display: block;
+        max-height: none;
+        margin-bottom: 1.5em;
+    }
+    .imgSlider img, .imgThumbnails img{
+        border-radius: 15px;
+    }
+    .imgThumbnails{
+        display: flex;
+        justify-content: space-between;
+    }
+    .thumbnailContainer{
+        width: 22.5%;
+        border-radius: 17px;
 
+    }
+    .activeThumbBorder{
+        border: 2px solid var(--color-primary);
+    }
+    .thumbnailIMG{
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .activeThumbImg{
+        opacity: 0.4;
+    }
     /**
 ---------------------- Right (images) ----------------------
 */
@@ -273,4 +320,6 @@ p {
     .amount input {
         width: 50%;
     }
+
+  
 }</style>
