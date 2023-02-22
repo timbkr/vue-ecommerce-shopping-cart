@@ -15,5 +15,6 @@ export default class Product{
         this.description = description;
         this.price = price;
         this.reduziert = reduziert;
+        this.oldprice = oldprice;
     }
 }
