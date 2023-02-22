@@ -31,24 +31,62 @@ function nextPicture() {
         currentImgIndex.value = 0;
     }
     currentImg.value = images.value[currentImgIndex.value]
+    thumbnailImgIndex.value = currentImgIndex.value;
+
 }
 
 function previousPicture() {
     currentImgIndex.value--;
     if (currentImgIndex.value < 0) currentImgIndex.value = images.value.length - 1;
     currentImg.value = images.value[currentImgIndex.value]
+    thumbnailImgIndex.value = currentImgIndex.value;
 }
 
 let thumbnailImgIndex = ref(0);
-function changePicture(index: number){
+function changePicture(index: number) {
     currentImgIndex.value = index;
     currentImg.value = images.value[currentImgIndex.value]
     thumbnailImgIndex.value = index
+}
+
+let showLightbox = ref(false)
+let lightBoxImgIndex = ref(0)
+function openImgLightbox() {
+    console.log("Lightbox");
+    showLightbox.value = true
+}
+function closeImgLightbox(){
+    showLightbox.value = false;
 }
 </script>
 
 <template>
     <div class="wrapper">
+
+        <div v-if="showLightbox" class="lightboxWrapper" @click="closeImgLightbox"></div>
+        <div v-if="showLightbox" class="lightbox">
+            <div class="imgSlider">
+                <div class="close">
+                    <img src="../assets/images/x-icon-white.png" alt="close large image icon" @click="closeImgLightbox()">
+                </div>
+                <div class="previous" @click="previousPicture">
+                    <img src="../assets/images/icon-previous.svg" alt="previous icon to go to previous image">
+                </div>
+                <div class="next" @click="nextPicture">
+                    <img src="../assets/images/icon-next.svg" alt="next icon to go to next image">
+                </div>
+                <img class="imgSliderIMG" :src="currentImg" alt="image of product (shoes)" @click="openImgLightbox">
+            </div>
+
+            <div class="imgThumbnails">
+                <div class="thumbnailContainer" v-for="(src, index) in images"
+                    :class="(thumbnailImgIndex === index) ? 'activeThumbBorder' : ''">
+                    <img class="thumbnailIMG" :src="src" :class="(thumbnailImgIndex === index) ? 'activeThumbImg' : ''"
+                        @click="changePicture(index)" alt="image of product (shoes)">
+                </div>
+            </div>
+        </div>
+
         <div class="productImages">
             <div class="imgSlider">
                 <div class="previous" @click="previousPicture">
@@ -57,19 +95,21 @@ function changePicture(index: number){
                 <div class="next" @click="nextPicture">
                     <img src="../assets/images/icon-next.svg" alt="next icon to go to next image">
                 </div>
-    
-                <img class="imgSliderIMG" :src="currentImg" alt="image of product (shoes)">
+
+                <img class="imgSliderIMG" :src="currentImg" alt="image of product (shoes)" @click="openImgLightbox">
 
             </div>
-          
+
             <div class="imgThumbnails">
-                <div class="thumbnailContainer" v-for="(src,index) in images" :class="(thumbnailImgIndex === index)?'activeThumbBorder': ''">
-                    <img class="thumbnailIMG"  :src="src" :class="(thumbnailImgIndex === index)?'activeThumbImg': ''" @click="changePicture(index)" alt="image of product (shoes)">
+                <div class="thumbnailContainer" v-for="(src, index) in images"
+                    :class="(thumbnailImgIndex === index) ? 'activeThumbBorder' : ''">
+                    <img class="thumbnailIMG" :src="src" :class="(thumbnailImgIndex === index) ? 'activeThumbImg' : ''"
+                        @click="changePicture(index)" alt="image of product (shoes)">
                 </div>
 
             </div>
-                <!-- <img src="../assets/images/image-product-1.jpg" alt="image 1 of product (shoes)"> -->
-            </div>
+            <!-- <img src="../assets/images/image-product-1.jpg" alt="image 1 of product (shoes)"> -->
+        </div>
 
         <div class="container productRight">
             <h2 class="bold">SNEAKER COMPANY</h2>
@@ -104,8 +144,64 @@ function changePicture(index: number){
 </template>
 
 <style scoped>
+.lightboxWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh;
+    padding: 0 !important;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 6;
+    /* transform: translate(0%, -50%);  */
+
+}
+
+.lightbox {
+    width: 50% !important;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 7;
+    /* left: 50%;
+    transform: translate(-50%, -50%); */
+    display: flex;
+    flex-direction: column;
+    align-items: center ;
+}
+
+.lightbox .close{
+    /* display: inline-block; */
+    text-align: end;
+    margin-bottom: 1em;
+}
+.lightbox .close img{
+    width: 2.5vw;
+    cursor: pointer;
+}
+.lightbox .previous,
+.lightbox .next {
+    display: flex;
+    position: fixed;
+    top: 36%;
+}
+.lightbox .previous{
+    left: 4%;
+}
+.lightbox .next{
+    right: 4%;
+}
+.lightbox .imgThumbnails{
+    width: 80%;
+}
+
+
 /** Image Buttons */
-.imgThumbnails{ display: none;}
+.imgThumbnails {
+    display: none;
+}
+
 .previous,
 .next {
     position: absolute;
@@ -117,6 +213,7 @@ function changePicture(index: number){
     background-color: white;
     padding: 1em;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .previous {
@@ -245,42 +342,52 @@ p {
     .imgSliderIMG {
         max-height: none;
         /* width: 50%; */
+        border-radius: 15px;
+        cursor: pointer;
     }
 
-    .imgSliderIMG {
-        border-radius: 15px;
-    }
-  .previous, .next{
+    .previous,
+    .next {
         display: none;
     }
-    .imgSlider{
+
+    .imgSlider {
         display: block;
         max-height: none;
         margin-bottom: 1.5em;
     }
-    .imgSlider img, .imgThumbnails img{
+
+    .imgSlider img,
+    .imgThumbnails img {
         border-radius: 15px;
     }
-    .imgThumbnails{
+
+    .imgThumbnails {
         display: flex;
         justify-content: space-between;
     }
-    .thumbnailContainer{
+
+    .thumbnailContainer {
         width: 22.5%;
         border-radius: 17px;
+        cursor: pointer;
+        background-color:  rgba(255,255,255,1);
 
     }
-    .activeThumbBorder{
+
+    .activeThumbBorder {
         border: 2px solid var(--color-primary);
     }
-    .thumbnailIMG{
+
+    .thumbnailIMG {
         height: 100%;
         object-fit: cover;
     }
 
-    .activeThumbImg{
+    .activeThumbImg {
         opacity: 0.4;
     }
+
     /**
 ---------------------- Right (images) ----------------------
 */
@@ -321,5 +428,5 @@ p {
         width: 50%;
     }
 
-  
+
 }</style>
