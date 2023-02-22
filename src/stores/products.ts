@@ -34,5 +34,5 @@ export const useProductsStore = defineStore("products", () => {
     //     count.value++;
     // }
 
-    return { products, doubleCount, add, remove };
+    return { products, add, remove };
 });
