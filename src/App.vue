@@ -4,7 +4,6 @@ import { ref } from 'vue';
 
 let showMobileMenu = ref(false);
 function openMenuMobile() {
-  console.log("Open NavMenu");
   showMobileMenu.value = true;
 }
 function closeMenuMobile() {
@@ -13,7 +12,6 @@ function closeMenuMobile() {
 
 let showCart = ref(false);
 function toggleShoppingCart() {
-  console.log("cart");
   showCart.value = !showCart.value;
 }
 

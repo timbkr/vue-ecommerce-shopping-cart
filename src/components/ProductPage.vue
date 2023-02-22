@@ -315,7 +315,7 @@ p {
 .lightbox .next {
     display: flex;
     position: fixed;
-    top: 36%;
+    top: 40%;
 }
 
 .lightbox .previous {
@@ -351,7 +351,6 @@ p {
         width: 90%;
         max-width: 1300px;
         margin: 0 auto;
-        gap: 2em;
     }
 
     .wrapper>* {
@@ -364,6 +363,15 @@ p {
     /**
 ---------------------- Left (images) ----------------------
 */
+    .productImages {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        margin-left: 2.5vw;
+    }
+
     .imgSliderIMG {
         max-height: none;
         /* width: 50%; */
@@ -388,25 +396,21 @@ p {
     }
 
     .imgThumbnails {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5%;
     }
 
     .thumbnailContainer {
-        width: 22.5%;
         border-radius: 17px;
         cursor: pointer;
-        background-color: rgba(255, 255, 255, 1);
-
+        display: flex;
     }
 
     .activeThumbBorder {
         border: 2px solid var(--color-primary);
-    }
+        background-color: rgba(255, 255, 255, 1);
 
-    .thumbnailIMG {
-        height: 100%;
-        object-fit: cover;
     }
 
     .activeThumbImg {
@@ -459,4 +463,5 @@ p {
     }
 
 
-}</style>
+}
+</style>
