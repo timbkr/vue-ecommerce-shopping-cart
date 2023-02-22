@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useProductsStore } from '@/stores/products';
+const productsStore = useProductsStore();
+
 let amount = ref(0);
 
 function increase() {

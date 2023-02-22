@@ -6,6 +6,6 @@ import ProductPage from '@/components/ProductPage.vue';
 
 <template>
   <main>
-    <ProductPage></ProductPage>    
+    <ProductPage></ProductPage>
   </main>
 </template>
