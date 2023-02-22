@@ -28,27 +28,27 @@ function clickOutsideNavMenu() {
     <div class="container row header">
       <div class="left row">
         <img @click="openMenuMobile" id="menuIconImg" src="./assets/images/icon-menu.svg" alt="image of menu icon">
-        <img src="./assets/images/logo.svg" alt="image of sneakers brand logo">  
+        <img src="./assets/images/logo.svg" alt="image of sneakers brand logo">
         <nav class="desktopNav">
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/collections">Collections</RouterLink>
-      <RouterLink to="/men">Men</RouterLink>
-      <RouterLink to="/women">Women</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-      <RouterLink to="/contact">Contact</RouterLink>
-</nav>
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/collections">Collections</RouterLink>
+          <RouterLink to="/men">Men</RouterLink>
+          <RouterLink to="/women">Women</RouterLink>
+          <RouterLink to="/about">About</RouterLink>
+          <RouterLink to="/contact">Contact</RouterLink>
+        </nav>
       </div>
       <div class="right row">
         <img @click="toggleShoppingCart" src="./assets/images/icon-cart.svg" alt="shopping cart icon">
         <img class="customerAvatarImg" src="./assets/images/image-avatar.png" alt="image of customer avatar">
-      </div>
     </div>
+  </div>
   </header>
 
 
-    <!-- 
-   -----------------------  Mobile Navmenu -----------------------
-   -->
+  <!-- 
+       -----------------------  Mobile Navmenu -----------------------
+       -->
   <div v-if="showMobileMenu" class="mobileMenu">
     <div class=" row header">
       <div class="left row">
@@ -66,8 +66,8 @@ function clickOutsideNavMenu() {
   </div>
 
   <!-- 
-   -----------------------  Shopping Cart -----------------------
-   -->
+       -----------------------  Shopping Cart -----------------------
+       -->
   <div v-if="showCart" class="cart row" @click="clickOutsideNavMenu">
     <h2 class="bold">Cart</h2>
     <div class="cartContent row">
@@ -79,8 +79,8 @@ function clickOutsideNavMenu() {
         </div>
         <div class="infos row">
           <div class="title">Fall Limited Edition Sneakers</div>
-          <div class="price">$125.00 x 3 <span class="sumprice bold">$375</span></div>
-        </div>
+        <div class="price">$125.00 x 3 <span class="sumprice bold">$375</span></div>
+      </div>
         <div class="delete">
           <img class="deleteIcon" src="./assets/images/icon-delete.svg" alt="image of delete icon">
         </div>
@@ -103,9 +103,9 @@ function clickOutsideNavMenu() {
     </div>
   </div>
 
-    <!-- 
-   -----------------------  APP -----------------------
-   -->
+  <!-- 
+       -----------------------  APP -----------------------
+       -->
   <RouterView @click="clickOutsideNavMenu" />
 
 
@@ -115,8 +115,6 @@ function clickOutsideNavMenu() {
 </template>
 
 <style scoped>
-
-
 /**
 ---------------------- Header ----------------------
 */
@@ -159,10 +157,14 @@ nav a {
   color: var(--color-text);
   font-size: 1.4rem;
 }
+
 /**
 ---------------------- Mobile Nav Menu ----------------------
 */
-.desktopNav{ display:none }
+.desktopNav {
+  display: none
+}
+
 .mobileMenu {
   position: fixed;
   width: 65vw;
@@ -171,6 +173,7 @@ nav a {
   background-color: white;
   padding-left: 5vw;
 }
+
 /**
 ---------------------- Shopping Cart ----------------------
 */
@@ -212,35 +215,43 @@ nav a {
   color: var(--color-text-sec)
 }
 
-.productItem{
+.productItem {
   gap: 1em;
   justify-content: space-between;
   align-items: center;
 }
-.thumbnail{
+
+.thumbnail {
   width: 15%;
 }
-.thumbnail img{
+
+.thumbnail img {
   border-radius: 8px;
 }
-.infos{
+
+.infos {
   flex: 1;
   flex-direction: column;
   gap: 0.25em;
   color: var(--color-text-sec)
 }
-.infos .price{
+
+.infos .price {
   font-size: 1.1rem;
 }
-.sumprice{
+
+.sumprice {
   color: var(--color-text);
 }
-.delete{
+
+.delete {
   width: 5%;
 }
-.deleteIcon{
+
+.deleteIcon {
   width: 100%;
 }
+
 .checkout {
   background-color: var(--color-primary);
   border: none;
@@ -250,42 +261,52 @@ nav a {
   color: white;
 }
 
-@media (min-width: 700px){
-  #menuIconImg{
+@media (min-width: 700px) {
+  #menuIconImg {
     display: none;
   }
-  header{
+
+  header {
     /* padding: 2em 0; */
     padding-bottom: 4em;
 
   }
-  .header{
+
+  .header {
     border-bottom: 1px solid var(--color-text-sec);
     padding: 2em 0;
   }
-  .desktopNav{ 
-    display:flex;
+
+  .desktopNav {
+    display: flex;
     flex-direction: row;
     padding: 0;
     /* gap: 2em; */
     color: var(--color-text-sec);
   }
-  .desktopNav a{ 
-    color:inherit;
+
+  .desktopNav a {
+    color: inherit;
     font-size: 1.125rem;
   }
-  .header img{
+
+  .header img {
     /* height: 3vh; */
   }
-  .right{
+
+  .right {
     gap: 2.5em;
   }
-  .header .customerAvatarImg{
+
+  .header .customerAvatarImg {
     height: 4.75vh;
 
   }
-  .cart{
-        border: 1px solid var(--color-text-sec);
-    }
+
+  .cart {
+    border: 1px solid var(--color-text-sec);
+    width: 90%;
+    max-width: 1300px;
+  }
 }
 </style>

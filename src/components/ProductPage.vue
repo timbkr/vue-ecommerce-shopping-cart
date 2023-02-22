@@ -52,10 +52,9 @@ function changePicture(index: number) {
 let showLightbox = ref(false)
 let lightBoxImgIndex = ref(0)
 function openImgLightbox() {
-    console.log("Lightbox");
     showLightbox.value = true
 }
-function closeImgLightbox(){
+function closeImgLightbox() {
     showLightbox.value = false;
 }
 </script>
@@ -144,60 +143,9 @@ function closeImgLightbox(){
 </template>
 
 <style scoped>
-.lightboxWrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100vh;
-    padding: 0 !important;
-    background-color: rgba(0, 0, 0, 0.3);
-    z-index: 6;
-    /* transform: translate(0%, -50%);  */
-
-}
-
-.lightbox {
-    width: 50% !important;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 7;
-    /* left: 50%;
-    transform: translate(-50%, -50%); */
-    display: flex;
-    flex-direction: column;
-    align-items: center ;
-}
-
-.lightbox .close{
-    /* display: inline-block; */
-    text-align: end;
-    margin-bottom: 1em;
-}
-.lightbox .close img{
-    width: 2.5vw;
-    cursor: pointer;
-}
-.lightbox .previous,
-.lightbox .next {
-    display: flex;
-    position: fixed;
-    top: 36%;
-}
-.lightbox .previous{
-    left: 4%;
-}
-.lightbox .next{
-    right: 4%;
-}
-.lightbox .imgThumbnails{
-    width: 80%;
-}
-
-
-/** Image Buttons */
+/**
+---------------------- Mobile Image Buttons ----------------------
+*/
 .imgThumbnails {
     display: none;
 }
@@ -233,7 +181,9 @@ img {
     object-fit: contain;
 }
 
-/** Styles */
+/**
+---------------------- Styles ----------------------
+*/
 h1 {
     padding: 0.5em 0;
     /* line-height: 1; */
@@ -320,7 +270,82 @@ p {
     box-shadow: 0px 19px 23px -23px #FF7D1A;
 }
 
+/**
+---------------------- Desktop Image Lightbox ----------------------
+*/
+.lightboxWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh;
+    padding: 0 !important;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 6;
+    /* transform: translate(0%, -50%);  */
+    display: none;
+}
+
+.lightbox {
+    width: 50% !important;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 7;
+    /* left: 50%;
+    transform: translate(-50%, -50%); */
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lightbox .close {
+    /* display: inline-block; */
+    text-align: end;
+    margin-bottom: 1em;
+}
+
+.lightbox .close img {
+    width: 1.8em;
+    cursor: pointer;
+}
+
+.lightbox .previous,
+.lightbox .next {
+    display: flex;
+    position: fixed;
+    top: 36%;
+}
+
+.lightbox .previous {
+    left: 4%;
+}
+
+.lightbox .next {
+    right: 4%;
+}
+
+.lightbox .imgThumbnails {
+    width: 80%;
+}
+
+.lightbox .imgSliderIMG {
+    cursor: initial;
+}
+
+/**
+---------------------- Desktop Styles ----------------------
+*/
 @media (min-width: 700px) {
+    .lightbox {
+        display: flex;
+    }
+
+    .lightboxWrapper {
+        display: block;
+    }
+
     .wrapper {
         display: flex;
         width: 90%;
@@ -371,7 +396,7 @@ p {
         width: 22.5%;
         border-radius: 17px;
         cursor: pointer;
-        background-color:  rgba(255,255,255,1);
+        background-color: rgba(255, 255, 255, 1);
 
     }
 
@@ -422,6 +447,11 @@ p {
 
     .amount {
         margin-bottom: 0;
+        user-select: none
+    }
+
+    .amountOuter {
+        cursor: pointer;
     }
 
     .amount input {
