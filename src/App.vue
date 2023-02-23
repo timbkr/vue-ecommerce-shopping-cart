@@ -81,7 +81,7 @@ function clickOutsideNavMenu() {
       </div>
       <div class="infos row">
           <div class="title">{{ item.name }}</div>
-          <div class="price">{{ item.price }} x {{ item.amount }}<span class="sumprice bold">$375</span></div>
+          <div class="price">{{ item.price }} x {{ item.amount }}<span class="sumprice bold"> ${{ item.amount * Number.parseInt(item.price)}}</span></div>
         </div>
         <div class="delete">
           <img @click="store.remove(item)" class="deleteIcon" src="./assets/images/icon-delete.svg"
