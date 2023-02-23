@@ -24,7 +24,7 @@ export const useProductsStore = defineStore("products", () => {
         // new Product('SNEAKER COMPANY','Fall Limited Edition Sneakers',`These low-profile sneakers are your perfect casual wear companion. Featuring a
         // durable rubber outer sole, they’ll withstand everything the weather can offer.`,'$125.00','50%,'50%')
     ]);
-    const cart = ref<Array<product>>([]);
+    const cart = ref([]);
 
     function add(product: object, amount: number) {
       if(amount === 0) return;
