@@ -64,11 +64,11 @@ let cartIcon = ref('../assets/images/icon-cart.svg')
     </div>
     <nav class="bold">
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/collections">Collections</RouterLink>
-      <RouterLink to="/men">Men</RouterLink>
-      <RouterLink to="/women">Women</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-      <RouterLink to="/contact">Contact</RouterLink>
+          <RouterLink to="/products">Products</RouterLink>
+          <RouterLink to="/men">Men</RouterLink>
+          <RouterLink to="/women">Women</RouterLink>
+          <RouterLink to="/about">About</RouterLink>
+          <RouterLink to="/contact">Contact</RouterLink>
   </nav>
 </div>
 
