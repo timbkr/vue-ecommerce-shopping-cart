@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { useProductsStore } from '@/stores/products';
 const productsStore = useProductsStore();
 let product = productsStore.products[0];
-console.log(product);
 
 let amount = ref(1);
 

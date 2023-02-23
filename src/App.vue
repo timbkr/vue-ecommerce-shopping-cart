@@ -5,8 +5,6 @@ import { useProductsStore } from '@/stores/products';
 
 const store = useProductsStore();
 let cart = store.cart;
-console.log(cart);
-
 
 let showMobileMenu = ref(false);
 function openMenuMobile() {

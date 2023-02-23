@@ -30,8 +30,6 @@ export const useProductsStore = defineStore("products", () => {
       if(amount === 0) return;
         for (let i = 0; i < cart.value.length; i++) {
             if (cart.value[i].name === product.name) {
-                console.log("Menge hinzufügen");
-                console.log(cart.value);
                 cart.value[i].amount += amount;
                 return;
             }
@@ -39,7 +37,6 @@ export const useProductsStore = defineStore("products", () => {
         let clone = { ...product };
         clone.amount = amount;
         cart.value.push(clone);
-        console.log(cart.value);
     }
 
     function remove(product: object) {
@@ -51,7 +48,6 @@ export const useProductsStore = defineStore("products", () => {
         }
       }
       cart.value.splice(index,1)
-      console.log(cart.value);
     }
 
     // const doubleCount = computed(() => count.value * 2);
