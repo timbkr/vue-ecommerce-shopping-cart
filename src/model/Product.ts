@@ -5,7 +5,6 @@ export type product = {
     price: string;
     reduziert: string;
     oldprice: string;
-    amount: number;
     pictures: Array<string>;
     thumbnailImg: string;
 
@@ -20,4 +19,7 @@ export type product = {
     //     this.reduziert = reduziert;
     //     this.oldprice = oldprice;
     // }
+}
+export interface cartProduct extends product{
+    amount: number;
 }

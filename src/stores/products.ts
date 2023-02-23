@@ -1,11 +1,11 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import type { product } from "@/model/Product";
+import type { product, cartProduct } from "@/model/Product";
 
 export const useProductsStore = defineStore("products", () => {
 
-    const products = ref([
-        {
+    const products = ref<Array<product>>([
+       {
             pictures: [
                 "../assets/images/image-product-1.jpg",
                 "../assets/images/image-product-2.jpg",
@@ -24,9 +24,9 @@ export const useProductsStore = defineStore("products", () => {
         // new Product('SNEAKER COMPANY','Fall Limited Edition Sneakers',`These low-profile sneakers are your perfect casual wear companion. Featuring a
         // durable rubber outer sole, they’ll withstand everything the weather can offer.`,'$125.00','50%,'50%')
     ]);
-    const cart = ref([]);
+    const cart = ref<Array<cartProduct>>([]);
 
-    function add(product: object, amount: number) {
+    function add(product: product, amount: number) {
       if(amount === 0) return;
         for (let i = 0; i < cart.value.length; i++) {
             if (cart.value[i].name === product.name) {
@@ -34,20 +34,22 @@ export const useProductsStore = defineStore("products", () => {
                 return;
             }
         }
-        let clone = { ...product };
+        // type cast because amount gets added to the product when it enters shopping cart
+        let clone = { ...product } as cartProduct;
+        ;
         clone.amount = amount;
         cart.value.push(clone);
     }
 
-    function remove(product: object) {
+    function remove(product: product) {
       let index;
       for (let i = 0; i < cart.value.length; i++) {
         if (cart.value[i].name === product.name) {
             index = i;
+            cart.value.splice(index,1)
             break;
         }
       }
-      cart.value.splice(index,1)
     }
 
     // const doubleCount = computed(() => count.value * 2);

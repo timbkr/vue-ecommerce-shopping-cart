@@ -253,6 +253,7 @@ nav a {
 
 .deleteIcon {
   width: 100%;
+  cursor: pointer;
 }
 
 .checkout {
