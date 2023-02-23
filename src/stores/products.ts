@@ -52,10 +52,17 @@ export const useProductsStore = defineStore("products", () => {
       }
     }
 
+    const getItemCount = computed( () => {
+      let itemAmount = 0;
+      cart.value.forEach(element => {
+        itemAmount += element.amount
+      });
+      return itemAmount;
+    })
     // const doubleCount = computed(() => count.value * 2);
     // function increment() {
     //     count.value++;
     // }
 
-    return { products, cart, add, remove };
+    return { products, cart, add, remove, getItemCount };
 });

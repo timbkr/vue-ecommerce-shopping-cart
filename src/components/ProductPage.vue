@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useProductsStore } from '@/stores/products';
-const productsStore = useProductsStore();
-let product = productsStore.products[0];
+const store = useProductsStore();
+let product = store.products[0];
 
 let amount = ref(1);
 
@@ -60,18 +60,19 @@ function closeImgLightbox() {
 }
 
 function addToCart(){
-    productsStore.add(product, amount.value)
+    store.add(product, amount.value)
 }
 </script>
 
 <template>
     <div class="wrapper">
 
+        <!-- --------------------- Lightbox --------------------- -->
         <div v-if="showLightbox" class="lightboxWrapper" @click="closeImgLightbox"></div>
         <div v-if="showLightbox" class="lightbox">
             <div class="imgSlider">
                 <div class="close">
-                    <img src="../assets/images/x-icon-white.png" alt="close large image icon" @click="closeImgLightbox()">
+                    <img id="lightBoxCloseBTN" src="../assets/images/x-icon-white.png" alt="close large image icon" @click="closeImgLightbox()">
                 </div>
                 <div class="previous" @click="previousPicture">
                     <img src="../assets/images/icon-previous.svg" alt="previous icon to go to previous image">
@@ -91,6 +92,7 @@ function addToCart(){
             </div>
         </div>
 
+        <!-- --------------------- Product Images --------------------- -->
         <div class="productImages">
             <div class="imgSlider">
                 <div class="previous" @click="previousPicture">
@@ -110,7 +112,6 @@ function addToCart(){
                     <img class="thumbnailIMG" :src="src" :class="(thumbnailImgIndex === index) ? 'activeThumbImg' : ''"
                         @click="changePicture(index)" alt="image of product (shoes)">
                 </div>
-
             </div>
             <!-- <img src="../assets/images/image-product-1.jpg" alt="image 1 of product (shoes)"> -->
         </div>
@@ -313,6 +314,9 @@ p {
     width: 1.8em;
     cursor: pointer;
 }
+#lightBoxCloseBTN:hover, .next img:hover, .previous img:hover{
+    filter: invert(56%) sepia(83%) saturate(1412%) hue-rotate(343deg) brightness(98%) contrast(97%);
+}
 
 .lightbox .previous,
 .lightbox .next {
@@ -409,6 +413,9 @@ p {
         cursor: pointer;
         display: flex;
     }
+    .thumbnailContainer:hover{
+        background-color: rgba(255, 255, 255, 1);
+    }
 
     .activeThumbBorder {
         border: 2px solid var(--color-primary);
@@ -416,7 +423,7 @@ p {
 
     }
 
-    .activeThumbImg {
+    .activeThumbImg, .thumbnailIMG:hover {
         opacity: 0.4;
     }
 
@@ -461,7 +468,9 @@ p {
     .amountOuter {
         cursor: pointer;
     }
-
+    .amountOuter:hover{
+        opacity: 0.6;
+    }
     .amount input {
         width: 50%;
     }

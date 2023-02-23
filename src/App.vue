@@ -18,11 +18,15 @@ let showCart = ref(false);
 function toggleShoppingCart() {
   showCart.value = !showCart.value;
 }
+function closeShoppingCart(){
+  showCart.value = false;
+}
 
 function clickOutsideNavMenu() {
   if (showMobileMenu.value) closeMenuMobile();
 }
 
+let cartIcon = ref('./assets/images/icon-cart.svg')
 </script>
 
 <template >
@@ -30,7 +34,7 @@ function clickOutsideNavMenu() {
     <div class="container row header">
       <div class="left row">
         <img @click="openMenuMobile" id="menuIconImg" src="./assets/images/icon-menu.svg" alt="image of menu icon">
-        <img src="./assets/images/logo.svg" alt="image of sneakers brand logo">
+        <RouterLink to="/"><img src="./assets/images/logo.svg" alt="image of sneakers brand logo"> </RouterLink> 
         <nav class="desktopNav">
           <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/collections">Collections</RouterLink>
@@ -39,18 +43,19 @@ function clickOutsideNavMenu() {
           <RouterLink to="/about">About</RouterLink>
           <RouterLink to="/contact">Contact</RouterLink>
         </nav>
-    </div>
-    <div class="right row">
-        <img @click="toggleShoppingCart" src="./assets/images/icon-cart.svg" alt="shopping cart icon">
-        <img class="customerAvatarImg" src="./assets/images/image-avatar.png" alt="image of customer avatar">
+      </div>
+      <div class="right row">
+        <span v-if="store.getItemCount > 0" class="cartAmount">{{ store.getItemCount }}</span>
+      <img @click="toggleShoppingCart" :src="cartIcon" alt="shopping cart icon" @mouseenter="cartIcon = './assets/images/icon-cart-black.svg'" @mouseleave="cartIcon = './assets/images/icon-cart.svg'">
+      <img class="customerAvatarImg" src="./assets/images/image-avatar.png" alt="image of customer avatar">
       </div>
     </div>
   </header>
 
 
   <!-- 
-         -----------------------  Mobile Navmenu -----------------------
-         -->
+             -----------------------  Mobile Navmenu -----------------------
+             -->
   <div v-if="showMobileMenu" class="mobileMenu">
     <div class=" row header">
       <div class="left row">
@@ -61,9 +66,9 @@ function clickOutsideNavMenu() {
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/collections">Collections</RouterLink>
       <RouterLink to="/men">Men</RouterLink>
-    <RouterLink to="/women">Women</RouterLink>
-    <RouterLink to="/about">About</RouterLink>
-    <RouterLink to="/contact">Contact</RouterLink>
+      <RouterLink to="/women">Women</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/contact">Contact</RouterLink>
   </nav>
 </div>
 
@@ -72,16 +77,17 @@ function clickOutsideNavMenu() {
        -->
 <div v-if="showCart" class="cart row" @click="clickOutsideNavMenu">
   <h2 class="bold">Cart</h2>
-    <div class="cartContent row">
-      <p v-if="cart.length === 0" class="bold">Your cart is empty</p>
+  <div class="cartContent row">
+    <p v-if="cart.length === 0" class="bold">Your cart is empty</p>
 
       <div v-for="item in cart" class="productItem row">
         <div class="thumbnail row">
           <img :src="item.thumbnailImg" alt="thumbnail image of product">
-      </div>
-      <div class="infos row">
+        </div>
+        <div class="infos row">
           <div class="title">{{ item.name }}</div>
-          <div class="price">{{ item.price }} x {{ item.amount }}<span class="sumprice bold"> ${{ item.amount * Number.parseInt(item.price)}}</span></div>
+        <div class="price">{{ item.price }} x {{ item.amount }}<span class="sumprice bold"> ${{ item.amount *
+          Number.parseInt(item.price) }}</span></div>
         </div>
         <div class="delete">
           <img @click="store.remove(item)" class="deleteIcon" src="./assets/images/icon-delete.svg"
@@ -90,26 +96,26 @@ function clickOutsideNavMenu() {
       </div>
 
       <!-- <div class="productItem row">
-          <div class="thumbnail row">
-            <img src="./assets/images/image-product-1-thumbnail.jpg" alt="thumbnail image of product (shoes)">
-          </div>
-          <div class="infos row">
-            <div class="title">Fall Limited Edition Sneakers</div>
-            <div class="price">$125.00 x 3 <span class="sumprice bold">$375</span></div>
-          </div>
-          <div class="delete">
-            <img class="deleteIcon" src="./assets/images/icon-delete.svg" alt="image of delete icon">
-          </div>
-        </div> -->
+              <div class="thumbnail row">
+                <img src="./assets/images/image-product-1-thumbnail.jpg" alt="thumbnail image of product (shoes)">
+              </div>
+              <div class="infos row">
+                <div class="title">Fall Limited Edition Sneakers</div>
+                <div class="price">$125.00 x 3 <span class="sumprice bold">$375</span></div>
+              </div>
+              <div class="delete">
+                <img class="deleteIcon" src="./assets/images/icon-delete.svg" alt="image of delete icon">
+              </div>
+            </div> -->
 
       <button class="checkout bold">Checkout</button>
     </div>
   </div>
 
   <!-- 
-         -----------------------  APP -----------------------
-         -->
-  <RouterView @click="clickOutsideNavMenu" />
+             -----------------------  APP -----------------------
+             -->
+  <RouterView @click="{clickOutsideNavMenu(); closeShoppingCart();}" />
 
 
   <footer @click="clickOutsideNavMenu">
@@ -159,6 +165,25 @@ nav a {
   text-decoration: none;
   color: var(--color-text);
   font-size: 1.4rem;
+  padding-bottom: 1em;
+  border-bottom: 5px solid transparent;
+
+}
+
+nav a:hover{
+  border-bottom: 5px solid var(--color-primary);
+}
+.cartAmount {
+  z-index: 6;
+  position: absolute;
+  top: -0.7em;
+  left: 0.6em;
+  background-color: var(--color-primary);
+  padding: 0.05em 0.56em;
+  border-radius: 11px;
+  color: white;
+  min-width: 2.1em;
+  text-align: center;
 }
 
 /**
@@ -278,12 +303,14 @@ nav a {
 
   .header {
     border-bottom: 1px solid var(--color-text-sec);
-    padding: 2em 0;
+    /* padding: 2em 0; */
+    padding: 0;
   }
 
   .desktopNav {
     display: flex;
     flex-direction: row;
+    align-items: center;
     padding: 0;
     /* gap: 2em; */
     color: var(--color-text-sec);
@@ -292,6 +319,7 @@ nav a {
   .desktopNav a {
     color: inherit;
     font-size: 1.125rem;
+    padding: 4vh 0;
   }
 
   .header img {
@@ -304,14 +332,21 @@ nav a {
 
   .header .customerAvatarImg {
     height: 4.75vh;
-
   }
-
+  .header .customerAvatarImg:hover{
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+  }
   .cart {
     border: 1px solid var(--color-text-sec);
     width: 50%;
     max-width: 1300px;
     transform: translateX(-7.5%);
+  }
+
+  .cartAmount {
+    top: -0.25em;
+    left: 0.5em;
   }
 }
 </style>
