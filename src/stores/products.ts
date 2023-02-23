@@ -1,8 +1,9 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import Product from "@/model/Product";
+import type { product } from "@/model/Product";
 
 export const useProductsStore = defineStore("products", () => {
+
     const products = ref([
         {
             pictures: [
@@ -11,6 +12,7 @@ export const useProductsStore = defineStore("products", () => {
                 "../assets/images/image-product-3.jpg",
                 "../assets/images/image-product-4.jpg",
             ],
+            thumbnailImg: '../assets/images/image-product-1-thumbnail.jpg',
             brand: "SNEAKER COMPANY",
             name: "Fall Limited Edition Sneakers",
             description: `These low-profile sneakers are your perfect casual wear companion. Featuring a
@@ -22,17 +24,40 @@ export const useProductsStore = defineStore("products", () => {
         // new Product('SNEAKER COMPANY','Fall Limited Edition Sneakers',`These low-profile sneakers are your perfect casual wear companion. Featuring a
         // durable rubber outer sole, they’ll withstand everything the weather can offer.`,'$125.00','50%,'50%')
     ]);
+    const cart = ref<Array<product>>([]);
 
-    function add() {
-        //
+    function add(product: object, amount: number) {
+      if(amount === 0) return;
+        for (let i = 0; i < cart.value.length; i++) {
+            if (cart.value[i].name === product.name) {
+                console.log("Menge hinzufügen");
+                console.log(cart.value);
+                cart.value[i].amount += amount;
+                return;
+            }
+        }
+        let clone = { ...product };
+        clone.amount = amount;
+        cart.value.push(clone);
+        console.log(cart.value);
     }
 
-    function remove() {}
+    function remove(product: object) {
+      let index;
+      for (let i = 0; i < cart.value.length; i++) {
+        if (cart.value[i].name === product.name) {
+            index = i;
+            break;
+        }
+      }
+      cart.value.splice(index,1)
+      console.log(cart.value);
+    }
 
     // const doubleCount = computed(() => count.value * 2);
     // function increment() {
     //     count.value++;
     // }
 
-    return { products, add, remove };
+    return { products, cart, add, remove };
 });

@@ -2,8 +2,10 @@
 import { ref } from 'vue'
 import { useProductsStore } from '@/stores/products';
 const productsStore = useProductsStore();
+let product = productsStore.products[0];
+console.log(product);
 
-let amount = ref(0);
+let amount = ref(1);
 
 function increase() {
     amount.value++;
@@ -56,6 +58,10 @@ function openImgLightbox() {
 }
 function closeImgLightbox() {
     showLightbox.value = false;
+}
+
+function addToCart(){
+    productsStore.add(product, amount.value)
 }
 </script>
 
@@ -111,17 +117,15 @@ function closeImgLightbox() {
         </div>
 
         <div class="container productRight">
-            <h2 class="bold">SNEAKER COMPANY</h2>
-            <h1>Fall Limited Edition Sneakers</h1>
-            <p class="description">These low-profile sneakers are your perfect casual wear companion. Featuring a
-                durable rubber outer sole, they’ll withstand everything the weather can offer.</p>
-
+            <h2 class="bold">{{ product.brand }}</h2>
+            <h1>{{product.name}}</h1>
+            <p class="description">{{product.description}}</p>
             <div class="row priceRow">
                 <div class="left row">
-                    <div class="price bold">$125.00</div>
-                    <div class="rabatt bold">50%</div>
+                    <div class="price bold">{{product.price}}</div>
+                    <div class="rabatt bold">{{product.reduziert}}</div>
                 </div>
-                <div class="oldPrice bold">$250.00</div>
+                <div class="oldPrice bold">{{product.oldprice}}</div>
             </div>
 
             <div class="addToCart">
@@ -129,12 +133,12 @@ function closeImgLightbox() {
                     <div class="amountOuter" @click="decrease">
                         <img src="../assets/images/icon-minus.svg" alt="minus icon to decrease product amount">
                     </div>
-                    <input class="bold" type="number" name="" id="" v-model="amount">
+                    <input id="amountInput" class="bold" type="number" name="" v-model="amount">
                     <div class="amountOuter amountRight" @click="increase">
                         <img src="../assets/images/icon-plus.svg" alt="plus icon to increase product amount">
                     </div>
                 </div>
-                <button class="addToCartBTN"><img src="../assets/images/icon-cart-white.svg" alt="shopping cart icon"> Add
+                <button @click="addToCart" class="addToCartBTN"><img src="../assets/images/icon-cart-white.svg" alt="shopping cart icon"> Add
                     to
                     cart</button>
             </div>
@@ -280,7 +284,7 @@ p {
     width: 100vw !important;
     height: 100vh;
     padding: 0 !important;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 6;
     /* transform: translate(0%, -50%);  */
     display: none;
@@ -421,7 +425,8 @@ p {
 ---------------------- Right (images) ----------------------
 */
     .productRight {
-        padding-top: 2em;
+        padding-top: 1em;
+        padding-right: 5vw;
     }
 
     h1 {

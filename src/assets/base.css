@@ -84,7 +84,7 @@
   --section-gap: 160px;
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root { 
     --color-bg: var(--color-bg-dark);
     --color-bg-1: var(--color-bg-1-dark);
@@ -103,7 +103,7 @@
     --color-text-active: var(--color-text-active-dark);
     --color-text-hover: var(--color-text-hover-dark);
   }
-} */
+}
 
 body.darkmode{
   --color-bg: var(--color-bg-dark);

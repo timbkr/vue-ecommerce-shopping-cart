@@ -1,6 +1,12 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
 import { ref } from 'vue';
+import { useProductsStore } from '@/stores/products';
+
+const store = useProductsStore();
+let cart = store.cart;
+console.log(cart);
+
 
 let showMobileMenu = ref(false);
 function openMenuMobile() {
@@ -35,18 +41,18 @@ function clickOutsideNavMenu() {
           <RouterLink to="/about">About</RouterLink>
           <RouterLink to="/contact">Contact</RouterLink>
         </nav>
-      </div>
-      <div class="right row">
+    </div>
+    <div class="right row">
         <img @click="toggleShoppingCart" src="./assets/images/icon-cart.svg" alt="shopping cart icon">
         <img class="customerAvatarImg" src="./assets/images/image-avatar.png" alt="image of customer avatar">
+      </div>
     </div>
-  </div>
   </header>
 
 
   <!-- 
-       -----------------------  Mobile Navmenu -----------------------
-       -->
+         -----------------------  Mobile Navmenu -----------------------
+         -->
   <div v-if="showMobileMenu" class="mobileMenu">
     <div class=" row header">
       <div class="left row">
@@ -57,53 +63,54 @@ function clickOutsideNavMenu() {
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/collections">Collections</RouterLink>
       <RouterLink to="/men">Men</RouterLink>
-      <RouterLink to="/women">Women</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-      <RouterLink to="/contact">Contact</RouterLink>
-    </nav>
-  </div>
+    <RouterLink to="/women">Women</RouterLink>
+    <RouterLink to="/about">About</RouterLink>
+    <RouterLink to="/contact">Contact</RouterLink>
+  </nav>
+</div>
 
-  <!-- 
+<!-- 
        -----------------------  Shopping Cart -----------------------
        -->
-  <div v-if="showCart" class="cart row" @click="clickOutsideNavMenu">
-    <h2 class="bold">Cart</h2>
+<div v-if="showCart" class="cart row" @click="clickOutsideNavMenu">
+  <h2 class="bold">Cart</h2>
     <div class="cartContent row">
-      <!-- <p class="bold">Your cart is empty</p> -->
+      <p v-if="cart.length === 0" class="bold">Your cart is empty</p>
 
-      <div class="productItem row">
+      <div v-for="item in cart" class="productItem row">
         <div class="thumbnail row">
-          <img src="./assets/images/image-product-1-thumbnail.jpg" alt="thumbnail image of product (shoes)">
-        </div>
-        <div class="infos row">
-          <div class="title">Fall Limited Edition Sneakers</div>
-        <div class="price">$125.00 x 3 <span class="sumprice bold">$375</span></div>
+          <img :src="item.thumbnailImg" alt="thumbnail image of product">
       </div>
-        <div class="delete">
-          <img class="deleteIcon" src="./assets/images/icon-delete.svg" alt="image of delete icon">
-        </div>
-      </div>
-
-      <div class="productItem row">
-        <div class="thumbnail row">
-          <img src="./assets/images/image-product-1-thumbnail.jpg" alt="thumbnail image of product (shoes)">
-        </div>
-        <div class="infos row">
-          <div class="title">Fall Limited Edition Sneakers</div>
-          <div class="price">$125.00 x 3 <span class="sumprice bold">$375</span></div>
+      <div class="infos row">
+          <div class="title">{{ item.name }}</div>
+          <div class="price">{{ item.price }} x {{ item.amount }}<span class="sumprice bold">$375</span></div>
         </div>
         <div class="delete">
-          <img class="deleteIcon" src="./assets/images/icon-delete.svg" alt="image of delete icon">
+          <img @click="store.remove(item)" class="deleteIcon" src="./assets/images/icon-delete.svg"
+            alt="image of delete icon">
         </div>
       </div>
+
+      <!-- <div class="productItem row">
+          <div class="thumbnail row">
+            <img src="./assets/images/image-product-1-thumbnail.jpg" alt="thumbnail image of product (shoes)">
+          </div>
+          <div class="infos row">
+            <div class="title">Fall Limited Edition Sneakers</div>
+            <div class="price">$125.00 x 3 <span class="sumprice bold">$375</span></div>
+          </div>
+          <div class="delete">
+            <img class="deleteIcon" src="./assets/images/icon-delete.svg" alt="image of delete icon">
+          </div>
+        </div> -->
 
       <button class="checkout bold">Checkout</button>
     </div>
   </div>
 
   <!-- 
-       -----------------------  APP -----------------------
-       -->
+         -----------------------  APP -----------------------
+         -->
   <RouterView @click="clickOutsideNavMenu" />
 
 
