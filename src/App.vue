@@ -37,7 +37,7 @@ let cartIcon = ref('./assets/images/icon-cart.svg')
         <RouterLink to="/"><img src="./assets/images/logo.svg" alt="image of sneakers brand logo"> </RouterLink> 
         <nav class="desktopNav">
           <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/collections">Collections</RouterLink>
+          <RouterLink to="/products">Products</RouterLink>
           <RouterLink to="/men">Men</RouterLink>
           <RouterLink to="/women">Women</RouterLink>
           <RouterLink to="/about">About</RouterLink>

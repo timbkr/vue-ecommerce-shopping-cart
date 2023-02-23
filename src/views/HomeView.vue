@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import TestComponent from '../components/TestComponent.vue';
 import ProductPage from '@/components/ProductPage.vue';
+
+import { useProductsStore } from '@/stores/products';
+const store = useProductsStore();
 
 </script>
 
 <template>
   <main>
-    <ProductPage></ProductPage>
+    <ProductPage :product="store.products[0]"></ProductPage>
   </main>
 </template>

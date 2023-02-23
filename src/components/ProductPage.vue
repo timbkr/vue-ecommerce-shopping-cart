@@ -1,8 +1,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useProductsStore } from '@/stores/products';
+import type { product } from '@/model/Product';
+
+const props = defineProps<{
+    product: product
+}>()
+
 const store = useProductsStore();
-let product = store.products[0];
+// let product = store.products[0];
+let product = props.product;
+
 
 let amount = ref(1);
 
@@ -18,35 +26,32 @@ function decrease() {
 let images = ref([ //wenn imgs nicht in public ordner (nur in src/assets dann:)
     //  new URL('../assets/images/image-product-1.jpg', import.meta.url).href,
     '../assets/images/image-product-1.jpg',
-    '../assets/images/image-product-2.jpg',
-    '../assets/images/image-product-3.jpg',
-    '../assets/images/image-product-4.jpg',
 ])
 
 let currentImgIndex = ref(0)
-let currentImg = ref(images.value[currentImgIndex.value])
+let currentImg = ref(product.pictures[currentImgIndex.value])
 
 function nextPicture() {
     currentImgIndex.value++;
-    if (currentImgIndex.value >= images.value.length) {
+    if (currentImgIndex.value >= product.pictures.length) {
         currentImgIndex.value = 0;
     }
-    currentImg.value = images.value[currentImgIndex.value]
+    currentImg.value = product.pictures[currentImgIndex.value]
     thumbnailImgIndex.value = currentImgIndex.value;
 
 }
 
 function previousPicture() {
     currentImgIndex.value--;
-    if (currentImgIndex.value < 0) currentImgIndex.value = images.value.length - 1;
-    currentImg.value = images.value[currentImgIndex.value]
+    if (currentImgIndex.value < 0) currentImgIndex.value = product.pictures.length - 1;
+    currentImg.value = product.pictures[currentImgIndex.value]
     thumbnailImgIndex.value = currentImgIndex.value;
 }
 
 let thumbnailImgIndex = ref(0);
 function changePicture(index: number) {
     currentImgIndex.value = index;
-    currentImg.value = images.value[currentImgIndex.value]
+    currentImg.value = product.pictures[currentImgIndex.value]
     thumbnailImgIndex.value = index
 }
 
@@ -84,7 +89,7 @@ function addToCart(){
             </div>
 
             <div class="imgThumbnails">
-                <div class="thumbnailContainer" v-for="(src, index) in images"
+                <div class="thumbnailContainer" v-for="(src, index) in product.pictures"
                     :class="(thumbnailImgIndex === index) ? 'activeThumbBorder' : ''">
                     <img class="thumbnailIMG" :src="src" :class="(thumbnailImgIndex === index) ? 'activeThumbImg' : ''"
                         @click="changePicture(index)" alt="image of product (shoes)">
@@ -107,7 +112,7 @@ function addToCart(){
             </div>
 
             <div class="imgThumbnails">
-                <div class="thumbnailContainer" v-for="(src, index) in images"
+                <div class="thumbnailContainer" v-for="(src, index) in product.pictures"
                     :class="(thumbnailImgIndex === index) ? 'activeThumbBorder' : ''">
                     <img class="thumbnailIMG" :src="src" :class="(thumbnailImgIndex === index) ? 'activeThumbImg' : ''"
                         @click="changePicture(index)" alt="image of product (shoes)">
@@ -122,10 +127,10 @@ function addToCart(){
             <p class="description">{{product.description}}</p>
             <div class="row priceRow">
                 <div class="left row">
-                    <div class="price bold">{{product.price}}</div>
+                    <div class="price bold">${{product.price}}</div>
                     <div class="rabatt bold">{{product.reduziert}}</div>
                 </div>
-                <div class="oldPrice bold">{{product.oldprice}}</div>
+                <div class="oldPrice bold">${{product.oldprice}}</div>
             </div>
 
             <div class="addToCart">
@@ -225,7 +230,6 @@ p {
     background-color: var(--color-elements);
     border-radius: 5px;
     padding: 0.15em 0.4em;
-
 }
 
 .oldPrice {
