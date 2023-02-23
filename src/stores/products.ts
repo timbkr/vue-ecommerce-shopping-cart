@@ -3,44 +3,10 @@ import { defineStore } from "pinia";
 import type { product, cartProduct } from "@/model/Product";
 
 export const useProductsStore = defineStore("products", () => {
-    const products = ref<Array<product>>([
-        // new Product('SNEAKER COMPANY','Fall Limited Edition Sneakers',`These low-profile sneakers are your perfect casual wear companion. Featuring a
-        // durable rubber outer sole, they’ll withstand everything the weather can offer.`,'$125.00','50%,'50%')
-    ]);
-
-    products.value.push({
-        pictures: [
-            "../assets/images/image-product-1.jpg",
-            "../assets/images/image-product-2.jpg",
-            "../assets/images/image-product-3.jpg",
-            "../assets/images/image-product-4.jpg",
-        ],
-        thumbnailImg: "../assets/images/image-product-1-thumbnail.jpg",
-        brand: "SNEAKER COMPANY",
-        name: "Fall Limited Edition Sneakers",
-        description: `These low-profile sneakers are your perfect casual wear companion. Featuring a
-                      durable rubber outer sole, they’ll withstand everything the weather can offer.`,
-        price: "125.00",
-        reduziert: "50%",
-        oldprice: "250.00",
-    });
-    products.value.push({
-      pictures: [
-          "../assets/images/image-product-2.jpg",
-          "../assets/images/image-product-1.jpg",
-          "../assets/images/image-product-3.jpg",
-          "../assets/images/image-product-4.jpg",
-      ],
-      thumbnailImg: "../assets/images/image-product-1-thumbnail.jpg",
-      brand: "SNEAKER COMPANY",
-      name: "Fall Limited Edition Sneakers1",
-      description: `These low-profile sneakers are your perfect casual wear companion. Featuring a
-                    durable rubber outer sole, they’ll withstand everything the weather can offer.`,
-      price: "155.00",
-      reduziert: "50%",
-      oldprice: "310.00",
-  });
+    const products = ref<Array<product>>([]);
     const cart = ref<Array<cartProduct>>([]);
+    
+    const currentProduct = ref<product>();
 
     function add(product: product, amount: number) {
         if (amount === 0) return;
@@ -78,6 +44,39 @@ export const useProductsStore = defineStore("products", () => {
     // function increment() {
     //     count.value++;
     // }
+    products.value.push({
+        pictures: [
+            "../assets/images/image-product-1.jpg",
+            "../assets/images/image-product-2.jpg",
+            "../assets/images/image-product-3.jpg",
+            "../assets/images/image-product-4.jpg",
+        ],
+        thumbnailImg: "../assets/images/image-product-1-thumbnail.jpg",
+        brand: "SNEAKER COMPANY",
+        name: "Fall Limited Edition Sneakers",
+        description: `These low-profile sneakers are your perfect casual wear companion. Featuring a
+                      durable rubber outer sole, they’ll withstand everything the weather can offer.`,
+        price: "125.00",
+        reduziert: "50%",
+        oldprice: "250.00",
+    });
+    products.value.push({
+      pictures: [
+          "../assets/images/image-product-2.jpg",
+          "../assets/images/image-product-1.jpg",
+          "../assets/images/image-product-3.jpg",
+          "../assets/images/image-product-4.jpg",
+      ],
+      thumbnailImg: "../assets/images/image-product-1-thumbnail.jpg",
+      brand: "SNEAKER COMPANY",
+      name: "Fall Limited Edition Sneakers1",
+      description: `These low-profile sneakers are your perfect casual wear companion. Featuring a
+                    durable rubber outer sole, they’ll withstand everything the weather can offer.`,
+      price: "155.00",
+      reduziert: "50%",
+      oldprice: "310.00",
+  });
+    return { products, cart, add, remove, getItemCount, currentProduct};
 
-    return { products, cart, add, remove, getItemCount };
+
 });

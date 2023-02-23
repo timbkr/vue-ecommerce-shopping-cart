@@ -1,15 +1,25 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useProductsStore } from '@/stores/products';
+import { useRouter, useRoute } from 'vue-router'
 import type { product } from '@/model/Product';
+
+
+const store = useProductsStore();
+const route = useRoute();
 
 const props = defineProps<{
     product: product
 }>()
 
-const store = useProductsStore();
-// let product = store.products[0];
-let product = props.product;
+let product: product;
+if (!props.product) {
+    /* @ts-ignore */
+    const name = route.params.name.replaceAll('-', ' ')
+    store.currentProduct = store.products.find(elem => elem.name === name);
+    if (store.currentProduct) product = store.currentProduct;
+}
+else product = props.product;
 
 
 let amount = ref(1);
@@ -29,7 +39,7 @@ let images = ref([ //wenn imgs nicht in public ordner (nur in src/assets dann:)
 ])
 
 let currentImgIndex = ref(0)
-let currentImg = ref(product.pictures[currentImgIndex.value])
+let currentImg = ref(product!.pictures[currentImgIndex.value])
 
 function nextPicture() {
     currentImgIndex.value++;
@@ -64,9 +74,12 @@ function closeImgLightbox() {
     showLightbox.value = false;
 }
 
-function addToCart(){
+function addToCart() {
     store.add(product, amount.value)
 }
+
+
+
 </script>
 
 <template>
@@ -77,7 +90,8 @@ function addToCart(){
         <div v-if="showLightbox" class="lightbox">
             <div class="imgSlider">
                 <div class="close">
-                    <img id="lightBoxCloseBTN" src="../assets/images/x-icon-white.png" alt="close large image icon" @click="closeImgLightbox()">
+                    <img id="lightBoxCloseBTN" src="../assets/images/x-icon-white.png" alt="close large image icon"
+                        @click="closeImgLightbox()">
                 </div>
                 <div class="previous" @click="previousPicture">
                     <img src="../assets/images/icon-previous.svg" alt="previous icon to go to previous image">
@@ -123,14 +137,14 @@ function addToCart(){
 
         <div class="container productRight">
             <h2 class="bold">{{ product.brand }}</h2>
-            <h1>{{product.name}}</h1>
-            <p class="description">{{product.description}}</p>
+            <h1>{{ product.name }}</h1>
+            <p class="description">{{ product.description }}</p>
             <div class="row priceRow">
                 <div class="left row">
-                    <div class="price bold">${{product.price}}</div>
-                    <div class="rabatt bold">{{product.reduziert}}</div>
+                    <div class="price bold">${{ product.price }}</div>
+                    <div class="rabatt bold">{{ product.reduziert }}</div>
                 </div>
-                <div class="oldPrice bold">${{product.oldprice}}</div>
+                <div class="oldPrice bold">${{ product.oldprice }}</div>
             </div>
 
             <div class="addToCart">
@@ -143,7 +157,8 @@ function addToCart(){
                         <img src="../assets/images/icon-plus.svg" alt="plus icon to increase product amount">
                     </div>
                 </div>
-                <button @click="addToCart" class="addToCartBTN"><img src="../assets/images/icon-cart-white.svg" alt="shopping cart icon"> Add
+                <button @click="addToCart" class="addToCartBTN"><img src="../assets/images/icon-cart-white.svg"
+                        alt="shopping cart icon"> Add
                     to
                     cart</button>
             </div>
@@ -318,7 +333,10 @@ p {
     width: 1.8em;
     cursor: pointer;
 }
-#lightBoxCloseBTN:hover, .next img:hover, .previous img:hover{
+
+#lightBoxCloseBTN:hover,
+.next img:hover,
+.previous img:hover {
     filter: invert(56%) sepia(83%) saturate(1412%) hue-rotate(343deg) brightness(98%) contrast(97%);
 }
 
@@ -417,7 +435,8 @@ p {
         cursor: pointer;
         display: flex;
     }
-    .thumbnailContainer:hover{
+
+    .thumbnailContainer:hover {
         background-color: rgba(255, 255, 255, 1);
     }
 
@@ -427,7 +446,8 @@ p {
 
     }
 
-    .activeThumbImg, .thumbnailIMG:hover {
+    .activeThumbImg,
+    .thumbnailIMG:hover {
         opacity: 0.4;
     }
 
@@ -472,13 +492,14 @@ p {
     .amountOuter {
         cursor: pointer;
     }
-    .amountOuter:hover{
+
+    .amountOuter:hover {
         opacity: 0.6;
     }
+
     .amount input {
         width: 50%;
     }
 
 
-}
-</style>
+}</style>

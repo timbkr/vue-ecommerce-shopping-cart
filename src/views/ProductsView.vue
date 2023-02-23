@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { useProductsStore } from '@/stores/products';
 import { useRouter, useRoute } from 'vue-router'
+import type { product } from '@/model/Product';
 
 const router = useRouter();
 const store = useProductsStore();
 
-function clickProduct(name: string) {
-    console.log("click Product");
+function clickProduct(product: product) {
     /* @ts-ignore */
-    const url = name.replaceAll(' ', '-')
-    console.log(url);
+    const url = product.name.replaceAll(' ', '-')
+    store.currentProduct = product;
     router.push('/products/' + url)
+    
 
 }
 </script>
@@ -20,7 +21,7 @@ function clickProduct(name: string) {
         <h1>Products</h1>
 
         <div class="products">
-            <div v-for="product in store.products" class="productCard" @click="clickProduct(product.name)">
+            <div v-for="product in store.products" class="productCard" @click="clickProduct(product)">
                 <img :src="product.pictures[0]" alt="image of product">
                 <h3>{{ product.name }}</h3>
                 <div class="price">${{ product.price }} <span class="rabatt">{{ product.reduziert }}</span> <span

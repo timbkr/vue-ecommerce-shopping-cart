@@ -26,7 +26,7 @@ function clickOutsideNavMenu() {
   if (showMobileMenu.value) closeMenuMobile();
 }
 
-let cartIcon = ref('./assets/images/icon-cart.svg')
+let cartIcon = ref('../assets/images/icon-cart.svg')
 </script>
 
 <template >
@@ -46,7 +46,7 @@ let cartIcon = ref('./assets/images/icon-cart.svg')
       </div>
       <div class="right row">
         <span v-if="store.getItemCount > 0" class="cartAmount">{{ store.getItemCount }}</span>
-      <img @click="toggleShoppingCart" :src="cartIcon" alt="shopping cart icon" @mouseenter="cartIcon = './assets/images/icon-cart-black.svg'" @mouseleave="cartIcon = './assets/images/icon-cart.svg'">
+      <img @click="toggleShoppingCart" :src="cartIcon" alt="shopping cart icon" @mouseenter="cartIcon = '../assets/images/icon-cart-black.svg'" @mouseleave="cartIcon = '../assets/images/icon-cart.svg'">
       <img class="customerAvatarImg" src="./assets/images/image-avatar.png" alt="image of customer avatar">
       </div>
     </div>
@@ -115,7 +115,7 @@ let cartIcon = ref('./assets/images/icon-cart.svg')
   <!-- 
              -----------------------  APP -----------------------
              -->
-  <RouterView @click="{clickOutsideNavMenu(); closeShoppingCart();}" />
+  <RouterView @click="{clickOutsideNavMenu(); closeShoppingCart();}" :product="store.currentProduct" />
 
 
   <footer @click="clickOutsideNavMenu">
