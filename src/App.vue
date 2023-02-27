@@ -38,10 +38,10 @@ let cartIcon = ref('../assets/images/icon-cart.svg')
         <nav class="desktopNav">
           <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/products">Products</RouterLink>
-          <RouterLink to="/men">Men</RouterLink>
-          <RouterLink to="/women">Women</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
-          <RouterLink to="/contact">Contact</RouterLink>
+          <!-- <RouterLink to="/men">Men</RouterLink> -->
+          <!-- <RouterLink to="/women">Women</RouterLink> -->
+          <!-- <RouterLink to="/about">About</RouterLink> -->
+          <!-- <RouterLink to="/contact">Contact</RouterLink> -->
         </nav>
       </div>
       <div class="right row">
@@ -65,10 +65,10 @@ let cartIcon = ref('../assets/images/icon-cart.svg')
     <nav class="bold">
       <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/products">Products</RouterLink>
-          <RouterLink to="/men">Men</RouterLink>
-          <RouterLink to="/women">Women</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
-          <RouterLink to="/contact">Contact</RouterLink>
+          <!-- <RouterLink to="/men">Men</RouterLink> -->
+          <!-- <RouterLink to="/women">Women</RouterLink> -->
+          <!-- <RouterLink to="/about">About</RouterLink> -->
+          <!-- <RouterLink to="/contact">Contact</RouterLink> -->
   </nav>
 </div>
 
