@@ -1,40 +1,52 @@
-# vue-pinia-starter-template
+# 🛒 Sneakers Shop (Vue 3 SPA)
 
-This template should help get you started developing with Vue 3 in Vite.
+Ein kleines Übungsprojekt zum Kennenlernen von **Vue 3**, **Pinia**, **Vue Router** und **TypeScript**.  
+Es handelt sich um eine einfache **Single Page Application (SPA)** mit Warenkorb-Funktion.
 
-## Recommended IDE Setup
+---
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## 🚀 Features
+- Produktübersicht mit Rabattanzeige  
+- Warenkorb mit Hinzufügen/Entfernen von Artikeln  
+- Navigation mit Vue Router  
+- State Management mit Pinia  
+- Nutzung der Composition API + TypeScript  
 
-## Type Support for `.vue` Imports in TS
+---
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+## 📂 Projektstruktur
+```
+src/
+├── assets/            # Bilder/Assets
+├── components/        # Wiederverwendbare Komponenten
+├── model/             # Typdefinitionen (Product.ts)
+├── router/            # Vue Router Setup
+├── stores/            # Pinia Stores (counter, products)
+├── views/             # Seiten (Home, Products, About)
+├── App.vue            # Root Component
+└── main.ts            # Einstiegspunkt
 ```
 
-### Compile and Hot-Reload for Development
+---
 
-```sh
+## ▶️ Installation & Start
+```bash
+npm install
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+---
 
-```sh
-npm run build
-```
+## 🛠️ Tech Stack
+- Vue 3 (Composition API)  
+- Pinia (State Management)  
+- Vue Router  
+- TypeScript  
+
+---
+
+📸 Screenshot:
+![Screenshot](/Screenshot.png)
+
+
+
